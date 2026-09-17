@@ -13,7 +13,7 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	// fprintln() mean write at destination like we use the fmt.println() to show the result on the terminal so f write to the destination which is w mean in response body
+	// fprintln() mean write at destination like we use the fmt.println() to show the result on the terminal so F write to the destination which is w mean in response body
 	fmt.Fprintln(w, "OK")
 }
 func helloHandler(w http.ResponseWriter, r *http.Request) {
@@ -26,6 +26,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	response := map[string]string{
 		"message": "Hello",
 	}
+	// above we have created the go data mean by using the maps (key : value )
 	json.NewEncoder(w).Encode(response)
 	// above we conver the go data into json and writes it to the http response
 }
