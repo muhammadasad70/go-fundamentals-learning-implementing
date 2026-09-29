@@ -8,7 +8,7 @@ import (
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/health", healthHandler)
-	mux.HandleFunc("/hello", helloHandler)
+	mux.Handle("/hello", requestIDMiddleware(http.HandlerFunc(helloHandler)))
 	fmt.Println("server running on port :8080")
 	err := http.ListenAndServe(":8080", mux)
 	if err != nil {
