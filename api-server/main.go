@@ -9,6 +9,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/health", healthHandler)
 	mux.HandleFunc("/hello", helloHandler)
+	mux.HandleFunc("/login", loginHandler)
 	fmt.Println("server running on port :8080")
 	err := http.ListenAndServe(":8080", mux)
 	if err != nil {
