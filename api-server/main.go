@@ -6,7 +6,9 @@ import (
 )
 
 func main() {
+	store := NewUserStore()
 	mux := http.NewServeMux()
+	mux.HandleFunc("POST /users", store.CreateUserhandler)
 	mux.HandleFunc("/health", healthHandler)
 	mux.HandleFunc("/hello", helloHandler)
 	fmt.Println("server running on port :8080")
