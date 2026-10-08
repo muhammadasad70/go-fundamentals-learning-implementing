@@ -35,3 +35,10 @@ func (s *UserStore) CreateUserhandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(user)
 
 }
+func (s *UserStore) ListUserhandler(w http.ResponseWriter, r *http.Request) {
+	users := s.List()
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(users)
+}

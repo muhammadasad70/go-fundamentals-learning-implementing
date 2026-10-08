@@ -31,3 +31,16 @@ func (s *UserStore) CreateUser(name, email string) User {
 	return user
 
 }
+
+func (s *UserStore) List() []User {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	users := make([]User, 0, len(s.users))
+
+	for _, user := range s.users {
+		users = append(users, user)
+
+	}
+	return users
+}
