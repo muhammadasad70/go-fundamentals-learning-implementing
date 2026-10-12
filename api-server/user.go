@@ -6,7 +6,7 @@ type CreateUserRequest struct {
 	Email string `json:"email"`
 }
 
-// this is for the server to send back the response
+// this is for the server to use this and also to send back the response to the user 
 
 type User struct {
 	ID    int    `json:"id"`
