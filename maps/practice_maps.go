@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func mapCreation() {
-	student := map[int]string{
+	names := map[int]string{
 		1: "Muhammad",
 		2: "Asad",
 		3: "Hassan Nawaz",
@@ -15,7 +15,7 @@ func mapCreation() {
 
 	// we are using the value and ok technique
 
-	name, ok := student[4]
+	name, ok := names[4]
 	// fmt.Println(name)
 	// fmt.Println(ok)
 

@@ -2,5 +2,6 @@ package main
 
 func main() {
 	// mapCreation()
-	classStudent()
+	// classStudent()
+	listOfStudents()
 }
