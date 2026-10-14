@@ -4,5 +4,6 @@ func main() {
 	// mapCreation()
 	// classStudent()
 	// listOfStudents()
-	deleteStudent()
+	// deleteStudent()
+	studentRecord()
 }
