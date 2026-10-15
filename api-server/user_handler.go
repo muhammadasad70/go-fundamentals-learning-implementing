@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/mail"
+	"strconv"
 	"strings"
 )
 
@@ -41,4 +42,22 @@ func (s *UserStore) ListUserhandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(users)
+}
+func (s *UserStore) GetUserHandler(w http.ResponseWriter, r *http.Request) {
+	// we are reading the value from the url path just like we read the r.Body
+	idString := r.PathValue("id")
+	id, err := strconv.Atoi(idString)
+	if err != nil || id <= 0 {
+		http.Error(w, "Invalid user id", http.StatusBadRequest)
+		return
+	}
+	user, ok := s.GetById(id)
+
+	if !ok {
+		http.Error(w, "User not found", http.StatusNotFound)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(user)
 }

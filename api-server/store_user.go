@@ -44,3 +44,9 @@ func (s *UserStore) List() []User {
 	}
 	return users
 }
+func (s *UserStore) GetById(id int) (User, bool) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	value, ok := s.users[id]
+	return value, ok
+}

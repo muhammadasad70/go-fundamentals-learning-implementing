@@ -10,6 +10,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("POST /users", store.CreateUserhandler)
 	mux.HandleFunc("GET /users", store.ListUserhandler)
+	mux.HandleFunc("GET /users/{id}", store.GetUserHandler)
 	mux.HandleFunc("/health", healthHandler)
 	mux.HandleFunc("/hello", helloHandler)
 	fmt.Println("server running on port :8080")
