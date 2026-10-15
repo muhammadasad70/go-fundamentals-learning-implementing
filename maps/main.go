@@ -5,5 +5,6 @@ func main() {
 	// classStudent()
 	// listOfStudents()
 	// deleteStudent()
-	studentRecord()
+	// studentRecord()
+	checkingTask()
 }
