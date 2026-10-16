@@ -61,3 +61,39 @@ func (s *UserStore) GetUserHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(user)
 }
+func (s *UserStore) UpdateUserHandler(w http.ResponseWriter, r *http.Request) {
+	var input CreateUserRequest
+
+	idstring := r.PathValue("id")
+	id, err := strconv.Atoi(idstring)
+	if err != nil || id <= 0 {
+		http.Error(w, "Invalid user id", http.StatusBadRequest)
+		return
+	}
+	err = json.NewDecoder(r.Body).Decode(&input)
+	if err != nil {
+		http.Error(w, "Invalid json body", http.StatusBadRequest)
+		return
+	}
+	input.Name = strings.TrimSpace(input.Name)
+	input.Email = strings.TrimSpace(input.Email)
+
+	if input.Name == "" || input.Email == "" {
+		http.Error(w, "Name and Email are required", http.StatusBadRequest)
+		return
+	}
+	address, err := mail.ParseAddress(input.Email)
+	if err != nil || address.Address != input.Email {
+		http.Error(w, "User email is invalid", http.StatusBadRequest)
+		return
+	}
+	user, ok := s.UpdateUser(id, input.Name, input.Email)
+	if !ok {
+		http.Error(w, "Unable to update the user because user not found", http.StatusNotFound)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(user)
+
+}

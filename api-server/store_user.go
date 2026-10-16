@@ -50,3 +50,18 @@ func (s *UserStore) GetById(id int) (User, bool) {
 	value, ok := s.users[id]
 	return value, ok
 }
+
+func (s *UserStore) UpdateUser(id int, name, email string) (User, bool) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	value, ok := s.users[id]
+	if ok {
+		value.Name = name
+		value.Email = email
+
+		s.users[id] = value
+		return value, true
+
+	}
+	return User{}, false
+}
