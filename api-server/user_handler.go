@@ -97,3 +97,20 @@ func (s *UserStore) UpdateUserHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(user)
 
 }
+
+func (s *UserStore) DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
+
+	idString := r.PathValue("id")
+	id, err := strconv.Atoi(idString)
+	if err != nil || id <= 0 {
+		http.Error(w, "Invalid user id", http.StatusBadRequest)
+		return
+	}
+	ok := s.DeleteUser(id)
+	if !ok {
+		http.Error(w, "User not found", http.StatusNotFound)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+
+}

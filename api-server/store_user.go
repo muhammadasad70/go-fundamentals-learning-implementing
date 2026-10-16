@@ -65,3 +65,14 @@ func (s *UserStore) UpdateUser(id int, name, email string) (User, bool) {
 	}
 	return User{}, false
 }
+func (s *UserStore) DeleteUser(id int) bool {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	_, ok := s.users[id]
+	if ok {
+		delete(s.users, id)
+		return true
+	}
+	return false
+}

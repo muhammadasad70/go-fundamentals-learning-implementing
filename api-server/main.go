@@ -12,6 +12,7 @@ func main() {
 	mux.HandleFunc("GET /users", store.ListUserhandler)
 	mux.HandleFunc("GET /users/{id}", store.GetUserHandler)
 	mux.HandleFunc("PUT /users/{id}", store.UpdateUserHandler)
+	mux.HandleFunc("DELETE /users/{id}", store.DeleteUserHandler)
 	mux.HandleFunc("/health", healthHandler)
 	mux.HandleFunc("/hello", helloHandler)
 	fmt.Println("server running on port :8080")
